@@ -31,8 +31,11 @@ jobs:
         run: |
           python Sarasota_FL_Probate_DateRange_Tool.py
 
+      - name: Verify Output File
+        run: ls -R *.xlsx
+
       - name: Send Email with Results
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v4
         with:
           server_address: smtp.gmail.com
           server_port: 465
@@ -42,4 +45,4 @@ jobs:
           body: "The Sarasota Probate Scraper has completed successfully. Please find the latest results attached."
           to: "${{ secrets.MAIL_USERNAME }}"
           from: "Scraper Bot"
-          attachments: "Sarasota_FL_Probate_Output_*.xlsx"
+          attachments: "*.xlsx"
