@@ -31,18 +31,6 @@ jobs:
         run: |
           python Sarasota_FL_Probate_DateRange_Tool.py
 
-      - name: Commit and Push Results
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add *.xlsx
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Automated Scrape: Sarasota Probate Results $(date +'%Y-%m-%d')"
-            git push
-          fi
-
       - name: Send Email with Results
         uses: dawidd6/action-send-mail@v3
         with:
