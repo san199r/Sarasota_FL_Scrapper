@@ -193,14 +193,20 @@ end_input.clear()
 end_input.send_keys(end_date)
 
 # 5. Court Type: Probate/Guardianship/Mental Health
-# Click Arrow
-wait.until(EC.element_to_be_clickable((By.ID, "ctl00_cphBody_rcbCourtType_Arrow"))).click()
+# Open Dropdown using suggested XPath
+court_type_input = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id,'rcbCourtType_Input')]")))
+court_type_input.click()
+time.sleep(1.5)
+
+# Select the Checkbox for Probate/Guardianship/Mental Health
+probate_checkbox = wait.until(EC.presence_of_element_located((By.XPATH, "//li[contains(., 'Probate/Guardianship/Mental Health')]//input[@type='checkbox']")))
+driver.execute_script("arguments[0].scrollIntoView(true);", probate_checkbox)
+driver.execute_script("arguments[0].click();", probate_checkbox)
 time.sleep(1)
-# Select Option (using JS click and dot-contains for better reliability)
-probate_court_option = wait.until(EC.presence_of_element_located((By.XPATH, '//li[contains(., "Probate/Guardianship/Mental Health")]')))
-driver.execute_script("arguments[0].scrollIntoView(true);", probate_court_option)
-driver.execute_script("arguments[0].click();", probate_court_option)
-time.sleep(2) # Wait for page/filters to reload
+
+# Close dropdown by clicking the input again
+court_type_input.click()
+time.sleep(2) # Wait for filters to update
 
 # 6. Click Probate in Case Type
 wait.until(EC.element_to_be_clickable((By.ID, "ctl00_cphBody_rcbCaseType_Arrow"))).click()
