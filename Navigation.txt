@@ -1,0 +1,8 @@
+1. Click General Public User Access: Click Here
+2. Click Agree
+3. Click search
+4. Case File Date: 3/22/2026, To: 3/31/2026
+5. In Court Type keep Probate/Guardianship/Mental Health. 
+6. Wait for page to reload and click Probate in Court Type
+7. Click Search
+8. Tool will open each record and extract data
