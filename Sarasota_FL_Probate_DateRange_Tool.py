@@ -206,11 +206,14 @@ time.sleep(1)
 
 # Close dropdown by clicking the input again
 court_type_input.click()
-time.sleep(2) # Wait for filters to update
+print("Waiting 15 seconds for Case Type filters to reload...")
+time.sleep(15) # Wait for filters to update as requested
 
 # 6. Click Probate in Case Type
-wait.until(EC.element_to_be_clickable((By.ID, "ctl00_cphBody_rcbCaseType_Arrow"))).click()
-time.sleep(1)
+case_type_input = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id,'rcbCaseType_Input')]")))
+case_type_input.click()
+time.sleep(1.5)
+
 probate_case_option = wait.until(EC.presence_of_element_located((By.XPATH, '//li[contains(., "Probate")]')))
 driver.execute_script("arguments[0].scrollIntoView(true);", probate_case_option)
 driver.execute_script("arguments[0].click();", probate_case_option)
