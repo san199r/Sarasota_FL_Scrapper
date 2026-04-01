@@ -217,11 +217,16 @@ print("Opening Case Type dropdown again...")
 # Relocate input in case of DOM refresh
 case_type_input = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id,'rcbCaseType_Input')]")))
 case_type_input.click() # Second click to open it properly
-time.sleep(1.5)
+time.sleep(2)
 
-probate_case_option = wait.until(EC.presence_of_element_located((By.XPATH, '//li[contains(., "Probate")]')))
-driver.execute_script("arguments[0].scrollIntoView(true);", probate_case_option)
-driver.execute_script("arguments[0].click();", probate_case_option)
+# Select the Checkbox for Probate in Case Type
+probate_case_checkbox = wait.until(EC.presence_of_element_located((By.XPATH, "//li[contains(., 'Probate')]//input[@type='checkbox']")))
+driver.execute_script("arguments[0].scrollIntoView(true);", probate_case_checkbox)
+driver.execute_script("arguments[0].click();", probate_case_checkbox)
+time.sleep(1)
+
+# Close Case Type dropdown
+case_type_input.click()
 time.sleep(1)
 
 # 7. Click Search
