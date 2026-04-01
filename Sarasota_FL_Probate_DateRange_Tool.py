@@ -204,14 +204,19 @@ driver.execute_script("arguments[0].scrollIntoView(true);", probate_checkbox)
 driver.execute_script("arguments[0].click();", probate_checkbox)
 time.sleep(1)
 
-# Close dropdown by clicking the input again
-court_type_input.click()
-print("Waiting 15 seconds for Case Type filters to reload...")
-time.sleep(15) # Wait for filters to update as requested
-
-# 6. Click Probate in Case Type
+# 6. Click Probate in Case Type (Multi-Step Logic)
 case_type_input = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id,'rcbCaseType_Input')]")))
-case_type_input.click()
+
+print("Triggering Case Type refresh (clicking once)...")
+case_type_input.click() # First click to trigger refresh
+
+print("Waiting 15 seconds for refresh to complete...")
+time.sleep(15) # Wait for page reload as requested
+
+print("Opening Case Type dropdown again...")
+# Relocate input in case of DOM refresh
+case_type_input = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id,'rcbCaseType_Input')]")))
+case_type_input.click() # Second click to open it properly
 time.sleep(1.5)
 
 probate_case_option = wait.until(EC.presence_of_element_located((By.XPATH, '//li[contains(., "Probate")]')))
