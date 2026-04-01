@@ -23,6 +23,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Cleanup Previous Run Output
+        # Ensures that we only email and commit the FRESH data from today's run.
+        run: rm -f Sarasota_FL_Probate_Output_*.xlsx
+
       - name: Run Scraper
         run: |
           python Sarasota_FL_Probate_DateRange_Tool.py
